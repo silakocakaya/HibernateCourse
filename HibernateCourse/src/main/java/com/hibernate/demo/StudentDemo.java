@@ -48,7 +48,7 @@ public class StudentDemo {
 			
 			Session session6 = sessionFactory.getCurrentSession();
 			session6.beginTransaction();
-			session6.createQuery("update Student set last_name = 'KAYA'").executeUpdate();
+			session6.createQuery("update Student set last_name = 'KOCAKAYA'").executeUpdate();
 			session6.getTransaction().commit();
 			
 			Session session4 = sessionFactory.getCurrentSession();
