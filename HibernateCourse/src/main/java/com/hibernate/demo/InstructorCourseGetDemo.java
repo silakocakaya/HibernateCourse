@@ -8,7 +8,7 @@ import com.hibernate.entity.mapping.Course;
 import com.hibernate.entity.mapping.Instructor;
 import com.hibernate.entity.mapping.InstructorDetail;
 
-public class InstructorSaveDemo {
+public class InstructorCourseGetDemo {
 	
 	public static void main(String[] args) {
 		
@@ -19,23 +19,19 @@ public class InstructorSaveDemo {
 										.addAnnotatedClass(Course.class)
 										.buildSessionFactory();
 		
+		Session session = sessionFactory.getCurrentSession();
 		try {
-			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
 			
-			InstructorDetail instructorDetail = new InstructorDetail("aa", "aa");
-			Instructor instructor = new Instructor("BBB", "CCC", instructorDetail);
+			Instructor instructor = session.get(Instructor.class, 2);
 			
-			session.save(instructor);
-			session.close();
-			//Bidirectional save
-			/*instructorDetail.setInstructor(instructor);
-			session.save(instructorDetail);
-			session.getTransaction().commit();*/
-			
+			System.out.println(instructor);
+			System.out.println(instructor.getCourseList());
 		} finally {
+			session.close();
 			sessionFactory.close();
 		}
 	}
 
 }
+
