@@ -13,7 +13,7 @@
         <property name="connection.password">hbstudent</property>
 
 		<!-- Autocreate tables -->
- 		<property name="hbm2ddl.auto">none</property>
+ 		<property name="hbm2ddl.auto">create</property>
  		 
         <!-- JDBC connection pool settings ... using built-in test pool -->
         <property name="connection.pool_size">1</property>
