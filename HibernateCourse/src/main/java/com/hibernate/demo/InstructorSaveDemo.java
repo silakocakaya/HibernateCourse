@@ -7,6 +7,8 @@ import org.hibernate.cfg.Configuration;
 import com.hibernate.entity.mapping.Course;
 import com.hibernate.entity.mapping.Instructor;
 import com.hibernate.entity.mapping.InstructorDetail;
+import com.hibernate.entity.mapping.Review;
+import com.hibernate.entity.mapping.Student;
 
 public class InstructorSaveDemo {
 	
@@ -17,14 +19,16 @@ public class InstructorSaveDemo {
 										.addAnnotatedClass(Instructor.class)
 										.addAnnotatedClass(InstructorDetail.class)
 										.addAnnotatedClass(Course.class)
+										.addAnnotatedClass(Student.class)
+										.addAnnotatedClass(Review.class)
 										.buildSessionFactory();
 		
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			session.beginTransaction();
 			
-			InstructorDetail instructorDetail = new InstructorDetail("aa", "aa");
-			Instructor instructor = new Instructor("BBB", "CCC", instructorDetail);
+			InstructorDetail instructorDetail = new InstructorDetail("bb", "bb");
+			Instructor instructor = new Instructor("Sila", "Kocakaya", instructorDetail);
 			
 			session.save(instructor);
 			session.close();

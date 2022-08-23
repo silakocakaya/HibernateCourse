@@ -1,8 +1,11 @@
 package com.hibernate.demo;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 
 import com.hibernate.entity.mapping.Course;
 import com.hibernate.entity.mapping.Instructor;
@@ -10,7 +13,7 @@ import com.hibernate.entity.mapping.InstructorDetail;
 import com.hibernate.entity.mapping.Review;
 import com.hibernate.entity.mapping.Student;
 
-public class InstructorCourseSaveDemo {
+public class InstructorCourseCriteriaGetDemo {
 	
 	public static void main(String[] args) {
 		
@@ -27,37 +30,14 @@ public class InstructorCourseSaveDemo {
 		try {
 			session.beginTransaction();
 			
-//			InstructorDetail instructorDetail = new InstructorDetail("insta", "asd");
-//			Instructor instructor = new Instructor("Aa", "Bb", instructorDetail);
-//			
-//			Course course = new Course("Title1");
-//			Course course2 = new Course("Title2");
-//			
-//			course.setInstructor(instructor);
-//			course2.setInstructor(instructor);
-//
-//			instructor.addCourse(course);
-//			instructor.addCourse(course2);
-//			
-//			session.save(instructor);
-
+			Criteria criteria = session.createCriteria(Instructor.class);
 			
-			Instructor instructor = session.get(Instructor.class, 2);
+			Criteria insCriteria = criteria.createCriteria("courseList", JoinType.INNER_JOIN);
 			
-			Course course = new Course("Course1zz For 2");
-			Course course2 = new Course("Course2zz For 2");
+			insCriteria.add(Restrictions.eq("title", "Course1zz For 2"));
 			
-			course.setInstructor(instructor);
-			course2.setInstructor(instructor);
-
-			//Add etmesek de course.setInstructor'dan dolayi create ediyor.
-			instructor.addCourse(course);
-			instructor.addCourse(course2);
+			System.out.println(criteria.list());
 			
-			session.save(course);
-			session.save(course2);
-			
-			session.getTransaction().commit();
 			
 		} finally {
 			sessionFactory.close();
